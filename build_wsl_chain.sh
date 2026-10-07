@@ -49,8 +49,8 @@ echo "      验证: stdio.h 已展开 → $(grep -c 'extern int printf' "$D/main
 echo ">>> 阶段② 编译: main.i → main.s   (输入 = ①的产物)"
 trun gcc $CFLAGS -S "$D/main.i" -o "$D/main.s"
 finfo "$D/main.s"
-echo "      汇编指令(制表符开头行): $(grep -cP '^\t' "$D/main.s" || true) 条"
-echo "      伪指令(.开头行):        $(grep -cE '^[[:space:]]*\.' "$D/main.s" || true) 条"
+echo "      真机器指令(制表符开头且非.伪指令): $(awk '/^\t/ && substr($0,2,1)!="."' "$D/main.s" | wc -l) 条"
+echo "      伪指令+局部标签(.开头行):          $(grep -cE '^[[:space:]]*\.' "$D/main.s" || true) 行"
 echo "      -- 符号归属证据(.s 片段):"
 grep -nE '(g_counter|g_bigbuf|g_msg|g_lut|s_calls):|\.globl[[:space:]]+(g_counter|g_msg)|\.local[[:space:]]+s_calls|\.zero[[:space:]]+16384|\.section[[:space:]]+\.(data|bss|rodata|text)' "$D/main.s" | head -22 | sed 's/^/      /'
 
