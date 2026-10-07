@@ -1,0 +1,34 @@
+# ===== 构建产物（可由脚本随时重新生成，不入库）=====
+build/
+build_chain/
+build_native/
+build_wsl/
+
+# ===== 工具链二进制（598MB zig + binutils，不入库）=====
+tools/
+
+# ===== 编译中间产物与可执行文件 =====
+*.o
+*.a
+*.i
+*.ii
+*.s
+*.map
+*.exe
+*.obj
+*.pdb
+app
+!build*.sh
+
+# ===== 日志 =====
+*.log
+logs/
+
+# ===== 系统/编辑器杂项 =====
+Thumbs.db
+Desktop.ini
+.vscode/
+.idea/
+
+# ===== 文档不入库 =====
+*.md
